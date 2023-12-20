@@ -2,28 +2,20 @@ import "../App.css";
 import { useState } from "react";
 
 function Home() {
-  // const apiKey = "o88z01rvR2uWzqwNCnWWuYTunl5eoGbA";
   const API_KEY = process.env.REACT_APP_API_KEY;
-  console.log(API_KEY);
-
-  // const [category, setCategory] = useState("");
-  // const [cover, setCover] = useState("");
   const [data, setData] = useState(null);
   const [isData, setIsData] = useState(false);
   const [formData, setFromData] = useState({
     cover: "",
     category: "",
   });
-  // let category = "nonfiction";
-  // let cover = "paperback";
 
-  function apiCall(userData) {
+  function apiCall() {
     let coverLocal = formData.cover;
     let catLocal = formData.category;
     console.log(formData.cover, formData.category, "here");
     let url = `https://api.nytimes.com/svc/books/v3/lists/current/${coverLocal}-${catLocal}.json?api-key=${API_KEY}`;
     console.log(url, "URL");
-    // fetch(`https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${apiKey}`)
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -43,13 +35,7 @@ function Home() {
     e.preventDefault();
     setIsData(false);
     setData(formData);
-
-    apiCall(data);
-    // setFromData({
-    //   cover: "hardcover",
-    //   category: "paperback",
-    // });
-    console.log(formData);
+    apiCall();
   }
 
   return (
@@ -82,7 +68,7 @@ function Home() {
 
       {isData ? (
         <div className="cards-wrapper">
-          {data &&
+          {data.results &&
             data.results.books.map((item, key) => {
               return (
                 <div className="card" key={key}>
