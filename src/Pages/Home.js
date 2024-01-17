@@ -11,10 +11,10 @@ function Home() {
   });
 
   function apiCall() {
-    let coverLocal = formData.cover;
-    let catLocal = formData.category;
+    let cover = formData.cover;
+    let category = formData.category;
     console.log(formData.cover, formData.category, "here");
-    let url = `https://api.nytimes.com/svc/books/v3/lists/current/${coverLocal}-${catLocal}.json?api-key=${API_KEY}`;
+    let url = `https://api.nytimes.com/svc/books/v3/lists/current/${cover}-${category}.json?api-key=${API_KEY}`;
     console.log(url, "URL");
     fetch(url)
       .then((response) => response.json())
